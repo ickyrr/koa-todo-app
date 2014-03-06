@@ -1,0 +1,14 @@
+extends layout
+
+block title
+  title='todo.name'
+
+block content
+  h1= todo.name
+  p= todo.description
+  p
+    i Created On: #{todo.created_on.toDateString()}
+  p
+    i Last Updated On: #{todo.updated_on.toDateString()}
+  p
+    a(href="/") Back to List

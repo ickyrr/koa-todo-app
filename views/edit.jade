@@ -1,0 +1,17 @@
+extends layout
+
+block title
+  title Edit Todo
+
+block content
+  h1 Edit Todo Item
+  p Edit a Todo item.
+  form(action="/todo/update", method="post")
+    p
+      input(type="hidden", value="#{todo.id}", name="id")
+    p
+      input(type="text", value="#{todo.name}", name="name")
+    p
+      input(type="text",value="#{todo.description}", name="description")
+    p
+      input(type="submit", value="Update")

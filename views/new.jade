@@ -1,0 +1,15 @@
+extends layout
+
+block title
+  title='New Todo'
+
+block content
+  h1 Add Todo Item
+  p Create a new Todo item
+  form(action="/todo/create", method="post")
+    p
+      input(type="text", placeholder="Name", name="name")
+    p
+      input(type="text", placeholder="Description", name="description")
+    p
+      input(type="submit", value="Create")
