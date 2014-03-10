@@ -4,11 +4,17 @@ var serve = require('koa-static');
 var route = require('koa-route');
 var views = require('co-views');
 var parse = require('co-body');
+
+// Mongo
+var monk = require('monk');
+var wrap = require('co-monk');
+var db = monk('localhost/todoapp');
+var collection = db.get('todos');
+
 var koa = require('koa');
 var app = koa();
 
-// "data store"
-var todos = [];
+var todos = wrap(collection);
 
 // wrap subsequent middleware in a logger
 app.use(logger());
@@ -34,12 +40,13 @@ app.use(route.get('/todo/edit/:id', edit));
 app.use(route.post('/todo/create', create));
 app.use(route.post('/todo/update', update));
 
-// Specifying Swig view engine
+// render jade
 var render = views(__dirname + '/views', { map: { jade: 'jade' }, default: 'jade'});
 
 // List function
-function *list() {
-  this.body = yield render('index', { todos: todos });
+function *list(next) {
+  var res = yield todos.find({});
+  this.body = yield render('index', { todos: res });
 }
 
 // create new todo item.
@@ -49,60 +56,45 @@ function *add() {
 
 // edit a todo items.
 function *edit(id) {
-    var todo = todos[id];
-    if (!todo) this.throw(404, 'invalid todo id');
-    this.body = yield render('edit', { todo: todo });
+    var res = yield todos.findOne({id: parseInt(id, 10)});
+    if (!res) this.throw(404, 'invalid todo id');
+    this.body = yield render('edit', { todo: res });
 }
 
 // show todo item.
 function *show(id) {
-  var todo = todos[id];
-  if (!todo) this.throw(404, 'invalid todo id');
-  this.body = yield render('show', { todo: todo });
+  var res = yield todos.findOne({id: parseInt(id, 10)});
+  if (!res) this.throw(404, 'invalid todo id');
+  this.body = yield render('show', { todo: res });
 }
 
 //delete a todo item
 function *remove(id) {
-  var todo = todos[id];
-  if (!todo) this.throw(404, 'invalid todo id');
- todos.splice(id, 1);
-  //Changing the Id for working with index
-  for (var i = 0; i < todos.length; i++)
-  {
-      todos[i].id = i;
-  }
+  var res = yield todos.findOne({id: parseInt(id, 10)});
+  if (!res) this.throw(404, 'invalid todo id');
+  todos.remove(res);
   this.redirect('/');
 }
 
 // create a todo item.
 function *create() {
   var todo = yield parse(this);
-  var id = todos.push(todo);
-  todo.created_on = new Date;
-  todo.updated_on = new Date;
-  todo.id = id-1;
+  todo.id = (!todos.length)? 1: todos.length + 1;
+  todo.created_on = todo.updated_on = new Date;
+  todos.insert(todo);
   this.redirect('/');
 }
 
 // update a todo item.
 function *update() {
   var todo = yield parse(this);
-  var index = todo.id;
-  todos[index].name = todo.name;
-  todos[index].description = todo.description;
-  todos[index].updated_on = new Date;
+  todo.updated_on = new Date;
+  id = parseInt(todo.id, 10);
+  todos.updateById(id, todo);
   this.redirect('/');
 }
 
 // static file serve
-app.use(
-  serve(__dirname + '/public'),
-  {
-     maxage: 0,
-     hidden: false,
-     index: 'index.html',
-     defer: true
-  }
-);
+app.use(serve(__dirname + '/public'), { defer: true });
 
 app.listen(3000);

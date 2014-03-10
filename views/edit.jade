@@ -4,14 +4,15 @@ block title
   title Edit Todo
 
 block content
-  h1 Edit Todo Item
-  p Edit a Todo item.
+  h1 Edit a new Todo
   form(action="/todo/update", method="post")
     p
       input(type="hidden", value="#{todo.id}", name="id")
     p
-      input(type="text", value="#{todo.name}", name="name")
+      label(for="name") ToDo name
+      input(type="text", value="#{todo.name}", name="name", id="name")
     p
-      input(type="text",value="#{todo.description}", name="description")
+      label(for="description") ToDo description
+      input(type="text",value="#{todo.description}", name="description", id="description")
     p
       input(type="submit", value="Update")

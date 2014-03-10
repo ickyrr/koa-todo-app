@@ -4,12 +4,13 @@ block title
   title='New Todo'
 
 block content
-  h1 Add Todo Item
-  p Create a new Todo item
+  h1 Add a new Todo
   form(action="/todo/create", method="post")
     p
-      input(type="text", placeholder="Name", name="name")
+      label(for="name") ToDo name
+      input(type="text", placeholder="ToDo Name", name="name", id="name")
     p
-      input(type="text", placeholder="Description", name="description")
+      label(for="description") ToDo description
+      input(type="text", placeholder="Description", name="description", id="description")
     p
-      input(type="submit", value="Create")
+      input(type="submit", value="Add")

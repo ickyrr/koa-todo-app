@@ -1,21 +1,23 @@
 extends layout
+
 block title
-  title= 'Todo Tasks'
+  title= 'Todo List'
 
 block content
   h1 Todo List
   p You have
     strong= todos.length
-    | Todo Items!
+    | Todos!
   p
-    a(href="/todo/new") Create a ToDo
-  ul#todos
-    each todo in todos
-      li
-        strong=todo.name
-        | ||
-        a(href="/todo/#{todo.id}") View Details
-        | ||
-        a(href="/todo/edit/#{todo.id}") Edit
-        | ||
-        a(href="/todo/delete/#{todo.id}") Delete
+    a(href="/todo/new") Add a new ToDo
+    ul#todos
+    - if(todos.length)
+      each todo in todos
+        li
+          strong=todo.name
+          | ||
+          a(href="/todo/#{todo.id}") View Details
+          | ||
+          a(href="/todo/edit/#{todo.id}") Edit
+          | ||
+          a(href="/todo/delete/#{todo.id}") Delete

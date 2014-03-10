@@ -7,8 +7,8 @@ block content
   h1= todo.name
   p= todo.description
   p
-    i Created On: #{todo.created_on.toDateString()}
+    time(date="#{todo.created_on.toDateString()}") Created: #{todo.created_on.toDateString()}
   p
-    i Last Updated On: #{todo.updated_on.toDateString()}
+    time(date="#{todo.updated_on.toDateString()}") Last Updated: #{todo.updated_on.toDateString()}
   p
     a(href="/") Back to List
