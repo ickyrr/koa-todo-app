@@ -1,15 +1,18 @@
-
 # koa-todo-app
 
 This app use [node.js](http://nodejs.org/) + [Koa](http://koajs.com/) + [mongoDB](http://www.mongodb.org/)
 
 ## Getting Started
 
+require node v0.11.9 (using --harmony) later 
+
 ```sh
 npm install
 node --harmony app.js
 # access your browser http://0.0.0.0:3000/
 ```
+
+If you haven't used [node.js](http://nodejs.org/). You can be retrieved using [ndenv](https://github.com/riywo/ndenv).
 
 ## Develop
 
