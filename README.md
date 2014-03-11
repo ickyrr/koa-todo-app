@@ -1,13 +1,23 @@
 
-# try-koa
+# koa-todo-app
 
-> The best project ever.
-
-The best project ever.
+This app use [node.js](http://nodejs.org/) + [Koa](http://koajs.com/) + [mongoDB](http://www.mongodb.org/)
 
 ## Getting Started
 
-This plugin requires Grunt `~0.4.2`
+```sh
+npm install
+node --harmony app.js
+# access your browser http://0.0.0.0:3000/
+```
+
+## Develop
+
+```sh
+npm install -g grunt-cli
+npm install
+grunt
+```
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
