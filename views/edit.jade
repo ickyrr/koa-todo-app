@@ -1,13 +1,12 @@
 extends layout
 
 block title
-  title Edit Todo
+  title='Edit Todo'
 
 block content
-  h1 Edit a new Todo
+  h1 Edit a Todo
   form(action="/todo/update", method="post")
-    p
-      input(type="hidden", value="#{todo.id}", name="id")
+    input(type="hidden", value="#{todo.id}", name="id")
     p
       label(for="name") ToDo name
       input(type="text", value="#{todo.name}", name="name", id="name")
@@ -15,4 +14,4 @@ block content
       label(for="description") ToDo description
       input(type="text",value="#{todo.description}", name="description", id="description")
     p
-      input(type="submit", value="Update")
+      input(type="submit", value="Update", class="button")

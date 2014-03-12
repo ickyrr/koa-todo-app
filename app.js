@@ -40,35 +40,35 @@ app.use(route.get('/todo/edit/:id', edit));
 app.use(route.post('/todo/create', create));
 app.use(route.post('/todo/update', update));
 
-// render jade
+// render view with jade
 var render = views(__dirname + '/views', { map: { jade: 'jade' }, default: 'jade'});
 
-// List function
-function *list(next) {
+// todo list
+function *list() {
   var res = yield todos.find({});
   this.body = yield render('index', { todos: res });
 }
 
-// create new todo item.
+// create new todo
 function *add() {
   this.body = yield render('new');
 }
 
-// edit a todo items.
+// edit todo
 function *edit(id) {
     var res = yield todos.findOne({id: parseInt(id, 10)});
     if (!res) this.throw(404, 'invalid todo id');
     this.body = yield render('edit', { todo: res });
 }
 
-// show todo item.
+// show todo
 function *show(id) {
   var res = yield todos.findOne({id: parseInt(id, 10)});
   if (!res) this.throw(404, 'invalid todo id');
   this.body = yield render('show', { todo: res });
 }
 
-//delete a todo item
+// delete todo
 function *remove(id) {
   var res = yield todos.findOne({id: parseInt(id, 10)});
   if (!res) this.throw(404, 'invalid todo id');
@@ -76,7 +76,7 @@ function *remove(id) {
   this.redirect('/');
 }
 
-// create a todo item.
+// create todo
 function *create() {
   var todo = yield parse(this);
   todo.id = (!todos.length)? 1: todos.length + 1;
@@ -85,7 +85,7 @@ function *create() {
   this.redirect('/');
 }
 
-// update a todo item.
+// update todo
 function *update() {
   var todo = yield parse(this);
   todo.updated_on = new Date;

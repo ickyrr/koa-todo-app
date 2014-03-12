@@ -6,18 +6,17 @@ block title
 block content
   h1 Todo List
   p You have
-    strong= todos.length
-    | Todos!
-  p
-    a(href="/todo/new") Add a new ToDo
+    span.count= todos.length
+    | Todos
+  div
+    a(href="/todo/new", class="button") add todo
+    p current todo lists
     ul#todos
-    - if(todos.length)
-      each todo in todos
-        li
-          strong=todo.name
-          | ||
-          a(href="/todo/#{todo.id}") View Details
-          | ||
-          a(href="/todo/edit/#{todo.id}") Edit
-          | ||
-          a(href="/todo/delete/#{todo.id}") Delete
+      - if(todos.length)
+        each todo in todos
+          li.todo
+            span.name=todo.name
+            nav.control
+              a(href="/todo/#{todo.id}", class="button") show
+              a(href="/todo/edit/#{todo.id}", class="button") edit
+              a(href="/todo/delete/#{todo.id}", class="button") delete

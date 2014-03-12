@@ -4,11 +4,17 @@ block title
   title='todo.name'
 
 block content
-  h1= todo.name
-  p= todo.description
-  p
-    time(date="#{todo.created_on.toDateString()}") Created: #{todo.created_on.toDateString()}
-  p
-    time(date="#{todo.updated_on.toDateString()}") Last Updated: #{todo.updated_on.toDateString()}
-  p
-    a(href="/") Back to List
+  dl.todo
+    dt
+      h1= todo.name
+    dd
+      p.description= todo.description
+      div
+        div.created
+          label(for="created") created
+          time(date="#{todo.created_on.toDateString()}") #{todo.created_on.toDateString()}
+        div.updated
+          label(for="updated") updated
+          time(date="#{todo.updated_on.toDateString()}") #{todo.updated_on.toDateString()}
+      div
+        a(href="/", class="button") back
