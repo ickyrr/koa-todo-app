@@ -4,7 +4,7 @@ This app use [node.js](http://nodejs.org/) + [Koa](http://koajs.com/) + [mongoDB
 
 ## Getting Started
 
-require node v0.11.9 (using --harmony) later 
+require node v0.11.0 (using --harmony) later
 
 ```sh
 npm install
